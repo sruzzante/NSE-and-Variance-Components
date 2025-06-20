@@ -1,0 +1,218 @@
+2025-05-27 16:46:46,335: Logging to /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/output.log initialized.
+2025-05-27 16:46:46,341: ### Folder structure created at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646
+2025-05-27 16:46:46,341: ### Run configurations for ens2
+2025-05-27 16:46:46,342: experiment_name: ens2
+2025-05-27 16:46:46,342: train_basin_file: allbasins.txt
+2025-05-27 16:46:46,342: validation_basin_file: allbasins.txt
+2025-05-27 16:46:46,342: test_basin_file: allbasins.txt
+2025-05-27 16:46:46,342: train_start_date: 2010-01-01 00:00:00
+2025-05-27 16:46:46,342: train_end_date: 2020-12-30 00:00:00
+2025-05-27 16:46:46,342: validation_start_date: 1980-01-01 00:00:00
+2025-05-27 16:46:46,342: validation_end_date: 1989-12-31 00:00:00
+2025-05-27 16:46:46,343: test_start_date: 1990-01-01 00:00:00
+2025-05-27 16:46:46,343: test_end_date: 2009-12-31 00:00:00
+2025-05-27 16:46:46,343: device: cuda:0
+2025-05-27 16:46:46,343: validate_every: 1
+2025-05-27 16:46:46,343: save_validation_results: True
+2025-05-27 16:46:46,343: validate_n_random_basins: 897
+2025-05-27 16:46:46,343: metrics: ['NSE', 'KGE']
+2025-05-27 16:46:46,343: model: cudalstm
+2025-05-27 16:46:46,343: head: regression
+2025-05-27 16:46:46,343: output_activation: linear
+2025-05-27 16:46:46,343: hidden_size: 256
+2025-05-27 16:46:46,343: initial_forget_bias: 3
+2025-05-27 16:46:46,343: output_dropout: 0.4
+2025-05-27 16:46:46,343: optimizer: Adam
+2025-05-27 16:46:46,343: loss: nse
+2025-05-27 16:46:46,343: learning_rate: {0: 0.0001, 30: 1e-05, 40: 5e-06}
+2025-05-27 16:46:46,343: batch_size: 256
+2025-05-27 16:46:46,343: epochs: 50
+2025-05-27 16:46:46,343: clip_gradient_norm: 1
+2025-05-27 16:46:46,344: predict_last_n: 1
+2025-05-27 16:46:46,344: seq_length: 365
+2025-05-27 16:46:46,344: num_workers: 2
+2025-05-27 16:46:46,344: log_interval: 5000
+2025-05-27 16:46:46,344: log_tensorboard: True
+2025-05-27 16:46:46,344: log_n_figures: 1
+2025-05-27 16:46:46,344: save_weights_every: 1
+2025-05-27 16:46:46,344: dataset: camelsbr_v1p2
+2025-05-27 16:46:46,344: data_dir: ../../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/camels-br
+2025-05-27 16:46:46,344: dynamic_inputs: ['p_chirps', 'p_cpc', 'p_era5land', 'p_mswep', 'aet_gleam', 'aet_era5land', 'pet_gleam', 'pet_era5land', 'tmax_cpc', 'tmax_era5land', 'tmean_era5land', 'tmin_cpc', 'tmin_era5land', 'sm_surface_gleam', 'sm_rootzone_gleam', 'sm_layer1_era5land', 'sm_layer2_era5land', 'sm_layer3_era5land', 'sm_layer4_era5land']
+2025-05-27 16:46:46,344: static_attributes: ['p_mean', 'pet_mean', 'et_mean', 'aridity', 'p_seasonality', 'asynchronicity', 'high_prec_freq', 'high_prec_dur', 'low_prec_freq', 'low_prec_dur', 'carb_rocks_perc', 'geol_porosity', 'geol_permeability', 'consumptive_use', 'consumptive_use_perc', 'reservoirs_vol', 'regulation_degree', 'q_mean', 'runoff_ratio', 'stream_elas', 'hfd_mean', 'Q5', 'Q95', 'high_q_freq', 'high_q_dur', 'low_q_freq', 'low_q_dur', 'zero_q_freq', 'crop_perc', 'crop_mosaic_perc', 'forest_perc', 'shrub_perc', 'grass_perc', 'barren_perc', 'imperv_perc', 'wet_perc', 'gauge_lat', 'gauge_lon', 'area_gsim', 'sand_perc', 'silt_perc', 'clay_perc', 'org_carbon_content', 'bedrock_depth', 'water_table_depth', 'elev_gauge', 'elev_mean', 'slope_mean']
+2025-05-27 16:46:46,344: target_variables: ['streamflow_mm']
+2025-05-27 16:46:46,344: clip_targets_to_zero: ['streamflow_mm']
+2025-05-27 16:46:46,344: use_basin_id_encoding: True
+2025-05-27 16:46:46,344: number_of_basins: 897
+2025-05-27 16:46:46,344: run_dir: /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646
+2025-05-27 16:46:46,344: train_dir: /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/train_data
+2025-05-27 16:46:46,344: img_log_dir: /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/img_log
+2025-05-27 16:46:46,681: ### Device cuda:0 will be used for training
+2025-05-27 16:46:47,359: Loading basin data into xarray data set.
+2025-05-27 16:49:09,395: Calculating target variable stds per basin
+2025-05-27 16:49:09,937: The following basins had not enough valid target values to calculate a standard deviation: 54300000, 64504210, 65021250, 75320000. NSE loss values for this basin will be NaN.
+2025-05-27 16:49:10,314: Create lookup table and convert to pytorch tensor
+2025-05-27 16:50:05,836: These basins do not have a single valid sample in the train period: ['54300000', '59380000', '64504210', '65021250', '75320000']
+2025-05-27 16:56:57,333: Epoch 1 average loss: avg_loss: 0.06816, avg_total_loss: 0.06816
+2025-05-27 16:58:29,931: The following basins had not enough valid target values to calculate a standard deviation: 39187800. NSE loss values for this basin will be NaN.
+2025-05-27 17:00:50,565: The following basins had not enough valid target values to calculate a standard deviation: 58300000. NSE loss values for this basin will be NaN.
+2025-05-27 17:01:19,920: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 17:02:27,050: The following basins had not enough valid target values to calculate a standard deviation: 64506000. NSE loss values for this basin will be NaN.
+2025-05-27 17:04:15,113: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch001/validation_metrics.csv
+2025-05-27 17:04:23,285: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch001/validation_results.p
+2025-05-27 17:04:23,299: Epoch 1 average validation loss: 0.06253 -- Median validation metrics: avg_loss: 0.06253, NSE: 0.69039, KGE: 0.69953
+2025-05-27 17:10:50,766: Epoch 2 average loss: avg_loss: 0.04269, avg_total_loss: 0.04269
+2025-05-27 17:14:28,811: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 17:16:55,685: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch002/validation_metrics.csv
+2025-05-27 17:16:58,717: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch002/validation_results.p
+2025-05-27 17:16:58,731: Epoch 2 average validation loss: 0.06013 -- Median validation metrics: avg_loss: 0.06013, NSE: 0.71454, KGE: 0.73488
+2025-05-27 17:23:25,123: Epoch 3 average loss: avg_loss: 0.03793, avg_total_loss: 0.03793
+2025-05-27 17:27:03,378: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 17:29:30,179: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch003/validation_metrics.csv
+2025-05-27 17:29:32,832: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch003/validation_results.p
+2025-05-27 17:29:32,846: Epoch 3 average validation loss: 0.06244 -- Median validation metrics: avg_loss: 0.06244, NSE: 0.71004, KGE: 0.74130
+2025-05-27 17:35:56,276: Epoch 4 average loss: avg_loss: 0.03528, avg_total_loss: 0.03528
+2025-05-27 17:39:34,446: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 17:42:02,548: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch004/validation_metrics.csv
+2025-05-27 17:42:03,983: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch004/validation_results.p
+2025-05-27 17:42:03,995: Epoch 4 average validation loss: 0.06167 -- Median validation metrics: avg_loss: 0.06167, NSE: 0.71577, KGE: 0.74900
+2025-05-27 17:48:31,128: Epoch 5 average loss: avg_loss: 0.03330, avg_total_loss: 0.03330
+2025-05-27 17:52:09,654: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 17:54:36,605: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch005/validation_metrics.csv
+2025-05-27 17:54:41,046: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch005/validation_results.p
+2025-05-27 17:54:41,061: Epoch 5 average validation loss: 0.06232 -- Median validation metrics: avg_loss: 0.06232, NSE: 0.70050, KGE: 0.72813
+2025-05-27 18:01:09,648: Epoch 6 average loss: avg_loss: 0.03176, avg_total_loss: 0.03176
+2025-05-27 18:04:48,785: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 18:07:16,608: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch006/validation_metrics.csv
+2025-05-27 18:07:18,604: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch006/validation_results.p
+2025-05-27 18:07:18,619: Epoch 6 average validation loss: 0.06167 -- Median validation metrics: avg_loss: 0.06167, NSE: 0.72234, KGE: 0.74585
+2025-05-27 18:13:47,587: Epoch 7 average loss: avg_loss: 0.03042, avg_total_loss: 0.03042
+2025-05-27 18:17:24,622: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 18:19:50,157: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch007/validation_metrics.csv
+2025-05-27 18:19:51,412: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch007/validation_results.p
+2025-05-27 18:19:51,427: Epoch 7 average validation loss: 0.06327 -- Median validation metrics: avg_loss: 0.06327, NSE: 0.70975, KGE: 0.74149
+2025-05-27 18:26:21,307: Epoch 8 average loss: avg_loss: 0.02931, avg_total_loss: 0.02931
+2025-05-27 18:30:01,390: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 18:32:28,194: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch008/validation_metrics.csv
+2025-05-27 18:32:31,041: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch008/validation_results.p
+2025-05-27 18:32:31,055: Epoch 8 average validation loss: 0.06264 -- Median validation metrics: avg_loss: 0.06264, NSE: 0.71361, KGE: 0.75327
+2025-05-27 18:38:58,581: Epoch 9 average loss: avg_loss: 0.02828, avg_total_loss: 0.02828
+2025-05-27 18:42:36,355: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 18:45:02,770: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch009/validation_metrics.csv
+2025-05-27 18:45:04,830: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch009/validation_results.p
+2025-05-27 18:45:04,844: Epoch 9 average validation loss: 0.06375 -- Median validation metrics: avg_loss: 0.06375, NSE: 0.70576, KGE: 0.75084
+2025-05-27 18:51:32,428: Epoch 10 average loss: avg_loss: 0.02748, avg_total_loss: 0.02748
+2025-05-27 18:55:11,032: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 18:57:37,729: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch010/validation_metrics.csv
+2025-05-27 18:57:39,628: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch010/validation_results.p
+2025-05-27 18:57:39,642: Epoch 10 average validation loss: 0.06769 -- Median validation metrics: avg_loss: 0.06769, NSE: 0.69896, KGE: 0.74706
+2025-05-27 19:04:08,280: Epoch 11 average loss: avg_loss: 0.02664, avg_total_loss: 0.02664
+2025-05-27 19:07:46,819: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 19:10:13,267: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch011/validation_metrics.csv
+2025-05-27 19:10:15,294: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch011/validation_results.p
+2025-05-27 19:10:15,308: Epoch 11 average validation loss: 0.07005 -- Median validation metrics: avg_loss: 0.07005, NSE: 0.69108, KGE: 0.73721
+2025-05-27 19:16:45,513: Epoch 12 average loss: avg_loss: 0.02705, avg_total_loss: 0.02705
+2025-05-27 19:20:26,341: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 19:22:53,180: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch012/validation_metrics.csv
+2025-05-27 19:22:54,616: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch012/validation_results.p
+2025-05-27 19:22:54,629: Epoch 12 average validation loss: 0.06493 -- Median validation metrics: avg_loss: 0.06493, NSE: 0.70098, KGE: 0.75248
+2025-05-27 19:29:21,667: Epoch 13 average loss: avg_loss: 0.02530, avg_total_loss: 0.02530
+2025-05-27 19:33:01,157: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 19:35:28,298: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch013/validation_metrics.csv
+2025-05-27 19:35:32,095: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch013/validation_results.p
+2025-05-27 19:35:32,109: Epoch 13 average validation loss: 0.07593 -- Median validation metrics: avg_loss: 0.07593, NSE: 0.69028, KGE: 0.73737
+2025-05-27 19:42:00,427: Epoch 14 average loss: avg_loss: 0.02612, avg_total_loss: 0.02612
+2025-05-27 19:45:40,574: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 19:48:07,736: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch014/validation_metrics.csv
+2025-05-27 19:48:10,706: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch014/validation_results.p
+2025-05-27 19:48:10,720: Epoch 14 average validation loss: 0.06917 -- Median validation metrics: avg_loss: 0.06917, NSE: 0.70042, KGE: 0.74837
+2025-05-27 19:54:36,473: Epoch 15 average loss: avg_loss: 0.02417, avg_total_loss: 0.02417
+2025-05-27 19:58:16,739: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 20:00:45,206: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch015/validation_metrics.csv
+2025-05-27 20:00:48,515: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch015/validation_results.p
+2025-05-27 20:00:48,530: Epoch 15 average validation loss: 0.06543 -- Median validation metrics: avg_loss: 0.06543, NSE: 0.69889, KGE: 0.74652
+2025-05-27 20:07:14,311: Epoch 16 average loss: avg_loss: 0.02361, avg_total_loss: 0.02361
+2025-05-27 20:10:55,382: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 20:13:22,406: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch016/validation_metrics.csv
+2025-05-27 20:13:25,739: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch016/validation_results.p
+2025-05-27 20:13:25,753: Epoch 16 average validation loss: 0.06862 -- Median validation metrics: avg_loss: 0.06862, NSE: 0.69495, KGE: 0.74812
+2025-05-27 20:19:51,058: Epoch 17 average loss: avg_loss: 0.02332, avg_total_loss: 0.02332
+2025-05-27 20:23:30,546: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 20:25:57,338: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch017/validation_metrics.csv
+2025-05-27 20:26:01,411: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch017/validation_results.p
+2025-05-27 20:26:01,425: Epoch 17 average validation loss: 0.06738 -- Median validation metrics: avg_loss: 0.06738, NSE: 0.69889, KGE: 0.74935
+2025-05-27 20:32:28,675: Epoch 18 average loss: avg_loss: 0.02267, avg_total_loss: 0.02267
+2025-05-27 20:36:07,402: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 20:38:33,589: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch018/validation_metrics.csv
+2025-05-27 20:38:36,990: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch018/validation_results.p
+2025-05-27 20:38:37,005: Epoch 18 average validation loss: 0.06667 -- Median validation metrics: avg_loss: 0.06667, NSE: 0.69912, KGE: 0.74989
+2025-05-27 20:45:06,965: Epoch 19 average loss: avg_loss: 0.02207, avg_total_loss: 0.02207
+2025-05-27 20:48:49,093: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 20:51:15,563: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch019/validation_metrics.csv
+2025-05-27 20:51:18,777: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch019/validation_results.p
+2025-05-27 20:51:18,792: Epoch 19 average validation loss: 0.06809 -- Median validation metrics: avg_loss: 0.06809, NSE: 0.68421, KGE: 0.73983
+2025-05-27 20:57:46,466: Epoch 20 average loss: avg_loss: 0.02174, avg_total_loss: 0.02174
+2025-05-27 21:01:25,847: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 21:03:52,339: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch020/validation_metrics.csv
+2025-05-27 21:03:55,776: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch020/validation_results.p
+2025-05-27 21:03:55,790: Epoch 20 average validation loss: 0.06623 -- Median validation metrics: avg_loss: 0.06623, NSE: 0.69960, KGE: 0.74975
+2025-05-27 21:10:22,470: Epoch 21 average loss: avg_loss: 0.02125, avg_total_loss: 0.02125
+2025-05-27 21:14:02,273: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 21:16:29,002: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch021/validation_metrics.csv
+2025-05-27 21:16:32,943: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch021/validation_results.p
+2025-05-27 21:16:32,957: Epoch 21 average validation loss: 0.06929 -- Median validation metrics: avg_loss: 0.06929, NSE: 0.68968, KGE: 0.74182
+2025-05-27 21:23:00,737: Epoch 22 average loss: avg_loss: 0.02111, avg_total_loss: 0.02111
+2025-05-27 21:26:40,185: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 21:29:06,773: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch022/validation_metrics.csv
+2025-05-27 21:29:09,888: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch022/validation_results.p
+2025-05-27 21:29:09,902: Epoch 22 average validation loss: 0.07378 -- Median validation metrics: avg_loss: 0.07378, NSE: 0.66816, KGE: 0.73480
+2025-05-27 21:35:40,662: Epoch 23 average loss: avg_loss: 0.02070, avg_total_loss: 0.02070
+2025-05-27 21:39:22,684: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 21:41:49,117: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch023/validation_metrics.csv
+2025-05-27 21:42:01,230: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch023/validation_results.p
+2025-05-27 21:42:01,244: Epoch 23 average validation loss: 0.07013 -- Median validation metrics: avg_loss: 0.07013, NSE: 0.68290, KGE: 0.74161
+2025-05-27 21:48:29,397: Epoch 24 average loss: avg_loss: 0.02283, avg_total_loss: 0.02283
+2025-05-27 21:52:08,258: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 21:54:34,837: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch024/validation_metrics.csv
+2025-05-27 21:54:54,274: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch024/validation_results.p
+2025-05-27 21:54:54,288: Epoch 24 average validation loss: 0.07174 -- Median validation metrics: avg_loss: 0.07174, NSE: 0.68055, KGE: 0.74074
+2025-05-27 22:01:56,264: Epoch 25 average loss: avg_loss: 0.01998, avg_total_loss: 0.01998
+2025-05-27 22:06:54,772: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 22:10:15,245: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch025/validation_metrics.csv
+2025-05-27 22:10:41,902: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch025/validation_results.p
+2025-05-27 22:10:42,686: Epoch 25 average validation loss: 0.06772 -- Median validation metrics: avg_loss: 0.06772, NSE: 0.68428, KGE: 0.74370
+2025-05-27 22:27:10,684: Epoch 26 average loss: avg_loss: 0.01969, avg_total_loss: 0.01969
+2025-05-27 22:34:16,271: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 22:39:08,355: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch026/validation_metrics.csv
+2025-05-27 22:39:11,839: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch026/validation_results.p
+2025-05-27 22:39:12,307: Epoch 26 average validation loss: 0.07089 -- Median validation metrics: avg_loss: 0.07089, NSE: 0.67086, KGE: 0.73743
+2025-05-27 22:50:30,839: Epoch 27 average loss: avg_loss: 0.02083, avg_total_loss: 0.02083
+2025-05-27 22:55:13,957: Basin 59380000 All simulated values are NaN, thus metrics will be NaN, too.
+2025-05-27 22:58:24,994: Stored metrics at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch027/validation_metrics.csv
+2025-05-27 22:58:38,117: Stored results at /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/ens2_2705_164646/validation/model_epoch027/validation_results.p
+2025-05-27 22:58:38,131: Epoch 27 average validation loss: 0.07103 -- Median validation metrics: avg_loss: 0.07103, NSE: 0.66913, KGE: 0.74226
+2025-05-27 23:09:07,241: Uncaught exception
+Traceback (most recent call last):
+  File "/lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/run_nh-ens2.py", line 25, in <module>
+    start_run(config_file=Path("allbasins-ens2.yml"))
+  File "/lustre06/project/6018060/ruzzante/neuralhydrology/neuralhydrology/nh_run.py", line 77, in start_run
+    start_training(config)
+  File "/lustre06/project/6018060/ruzzante/neuralhydrology/neuralhydrology/training/train.py", line 20, in start_training
+    trainer.train_and_validate()
+  File "/lustre06/project/6018060/ruzzante/neuralhydrology/neuralhydrology/training/basetrainer.py", line 214, in train_and_validate
+    self._train_epoch(epoch=epoch)
+  File "/lustre06/project/6018060/ruzzante/neuralhydrology/neuralhydrology/training/basetrainer.py", line 327, in _train_epoch
+    pbar.set_postfix_str(f"Loss: {loss.item():.4f}")
+  File "/lustre06/project/6018060/ruzzante/NH_ENV4/lib/python3.11/site-packages/tqdm/std.py", line 1439, in set_postfix_str
+    self.refresh()
+  File "/lustre06/project/6018060/ruzzante/NH_ENV4/lib/python3.11/site-packages/tqdm/std.py", line 1347, in refresh
+    self.display()
+  File "/lustre06/project/6018060/ruzzante/NH_ENV4/lib/python3.11/site-packages/tqdm/std.py", line 1495, in display
+    self.sp(self.__str__() if msg is None else msg)
+  File "/lustre06/project/6018060/ruzzante/NH_ENV4/lib/python3.11/site-packages/tqdm/std.py", line 459, in print_status
+    fp_write('\r' + s + (' ' * max(last_len[0] - len_s, 0)))
+  File "/lustre06/project/6018060/ruzzante/NH_ENV4/lib/python3.11/site-packages/tqdm/std.py", line 453, in fp_write
+    fp_flush()
+  File "/lustre06/project/6018060/ruzzante/NH_ENV4/lib/python3.11/site-packages/tqdm/utils.py", line 196, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 122] Disk quota exceeded

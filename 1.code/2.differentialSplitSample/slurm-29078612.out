@@ -1,0 +1,53 @@
+Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Linking to GEOS 3.12.0, GDAL 3.9.1, PROJ 9.2.0; sf_use_s2() is TRUE
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+Reading layer `location_gauges_streamflow' from data source 
+  `/project/6018060/ruzzante/DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/camels-br/13_CAMELS_BR_gauge_location/location_gauges_streamflow.gpkg' 
+  using driver `GPKG'
+Simple feature collection with 4025 features and 7 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -73.6644 ymin: -33.6897 xmax: -34.8833 ymax: 4.6333
+Geodetic CRS:  +proj=longlat +datum=WGS84 +no_defs
+Joining with `by = join_by(dt)`
+Joining with `by = join_by(dt)`
+Joining with `by = join_by(dt)`
+Joining with `by = join_by(wateryear)`
+Joining with `by = join_by(wateryear)`
+Joining with `by = join_by(wateryear)`
+Joining with `by = join_by(wateryear)`
+Joining with `by = join_by(wateryear)`
+Joining with `by = join_by(wateryear)`
+Joining with `by = join_by(wateryear)`
+Joining with `by = join_by(wateryear)`
+Joining with `by = join_by(wateryear)`
+Joining with `by = join_by(wateryear)`
+Joining with `by = join_by(wateryear)`
+Error in UseMethod("group_by") : 
+  no applicable method for 'group_by' applied to an object of class "c('double', 'numeric')"
+Calls: %>% -> median -> pull -> summarise -> group_by
+Execution halted

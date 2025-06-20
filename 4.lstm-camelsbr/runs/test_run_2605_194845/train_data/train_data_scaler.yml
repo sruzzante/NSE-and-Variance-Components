@@ -1,0 +1,268 @@
+attribute_means:
+  Q5: 0.4050137235228539
+  Q95: 4.121035663322186
+  area_gsim: 42796.91783846154
+  aridity: 0.8107717837235228
+  asynchronicity: 0.10605810479375698
+  barren_perc: 0.040720401337792644
+  bedrock_depth: 2159.8563939799333
+  carb_rocks_perc: 1.4289855072463769
+  clay_perc: 39.03019353400223
+  consumptive_use: 8.015590078037905
+  consumptive_use_perc: 4.121189409141583
+  crop_mosaic_perc: 38.35158550724638
+  crop_perc: 12.016863879598661
+  elev_gauge: 389.6845039018952
+  elev_mean: 669.239429877369
+  et_mean: 2.605835061315496
+  forest_perc: 35.78850858416945
+  gauge_lat: -17.96213154960981
+  gauge_lon: -46.82739108138239
+  geol_permeability: -13.247621850613156
+  geol_porosity: 0.09256354515050168
+  grass_perc: 0.10586209587513935
+  hfd_mean: 175.16200754738014
+  high_prec_dur: 1.264747993311037
+  high_prec_freq: 19.589074693422518
+  high_q_dur: 4.044775462653289
+  high_q_freq: 9.294118829431438
+  imperv_perc: 0.09927937569676701
+  low_prec_dur: 5.434156789297659
+  low_prec_freq: 234.45111482720176
+  low_q_dur: 11.29061260869565
+  low_q_freq: 37.66037557413601
+  org_carbon_content: 14.525578149386844
+  p_mean: 3.962617614269788
+  p_seasonality: 0.5299390635451504
+  pet_mean: 2.8901870234113716
+  q_mean: 1.489004314381271
+  regulation_degree: 23.957150613154962
+  reservoirs_vol: 2625.7959866220735
+  runoff_ratio: 0.34108014492753624
+  sand_perc: 42.29477547380156
+  shrub_perc: 13.217803678929767
+  silt_perc: 18.662118617614272
+  slope_mean: 53.10756633221851
+  stream_elas: 1.7363126755852842
+  water_table_depth: 2218.259702341137
+  wet_perc: 0.3781585284280936
+  zero_q_freq: 0.0001451170568561873
+attribute_stds:
+  Q5: 0.3516284576453892
+  Q95: 2.8880409667360274
+  area_gsim: 233704.3567130628
+  aridity: 0.3460579432356701
+  asynchronicity: 0.10152665659363927
+  barren_perc: 0.17681845447939423
+  bedrock_depth: 911.9044814102124
+  carb_rocks_perc: 6.450649172827941
+  clay_perc: 7.729503303531918
+  consumptive_use: 10.870902867699296
+  consumptive_use_perc: 13.946731147213113
+  crop_mosaic_perc: 19.50469729145769
+  crop_perc: 12.55291660622525
+  elev_gauge: 294.94145854252537
+  elev_mean: 289.4852503242939
+  et_mean: 0.46997195463012836
+  forest_perc: 26.249535456998448
+  gauge_lat: 7.5446553964069505
+  gauge_lon: 6.178188616177336
+  geol_permeability: 0.7748454832368539
+  geol_porosity: 0.07154685884843998
+  grass_perc: 0.3635870249949928
+  hfd_mean: 24.29941209883254
+  high_prec_dur: 0.16888541290193773
+  high_prec_freq: 5.311618407102829
+  high_q_dur: 9.352944335961771
+  high_q_freq: 20.624593670925588
+  imperv_perc: 0.6058340189841921
+  low_prec_dur: 1.3611296510797144
+  low_prec_freq: 40.838875937252155
+  low_q_dur: 16.160560092674224
+  low_q_freq: 62.816640843604326
+  org_carbon_content: 6.204781691684566
+  p_mean: 1.0942405390559693
+  p_seasonality: 0.5916017644465069
+  pet_mean: 0.3390763950637908
+  q_mean: 0.9846247831267122
+  regulation_degree: 91.42045530870482
+  reservoirs_vol: 14913.331434344536
+  runoff_ratio: 0.16751277504281856
+  sand_perc: 10.305571637443848
+  shrub_perc: 14.814955792523218
+  silt_perc: 4.202233340070052
+  slope_mean: 32.161000396467244
+  stream_elas: 0.7454652572653592
+  water_table_depth: 975.5369238928473
+  wet_perc: 1.081783425787916
+  zero_q_freq: 0.0008595243783868659
+xarray_feature_scale:
+  coords: {}
+  attrs: {}
+  dims: {}
+  data_vars:
+    aet_era5land:
+      dims: []
+      attrs: {}
+      data: 1.264480471611023
+    aet_gleam:
+      dims: []
+      attrs: {}
+      data: 1.0594557523727417
+    p_chirps:
+      dims: []
+      attrs: {}
+      data: 8.354375839233398
+    p_cpc:
+      dims: []
+      attrs: {}
+      data: 7.470372200012207
+    p_era5land:
+      dims: []
+      attrs: {}
+      data: 7.313309669494629
+    p_mswep:
+      dims: []
+      attrs: {}
+      data: 7.603448867797852
+    pet_era5land:
+      dims: []
+      attrs: {}
+      data: 4.69578218460083
+    pet_gleam:
+      dims: []
+      attrs: {}
+      data: 1.4870529174804688
+    sm_layer1_era5land:
+      dims: []
+      attrs: {}
+      data: 0.10787524282932281
+    sm_layer2_era5land:
+      dims: []
+      attrs: {}
+      data: 0.0975964292883873
+    sm_layer3_era5land:
+      dims: []
+      attrs: {}
+      data: 0.09295155107975006
+    sm_layer4_era5land:
+      dims: []
+      attrs: {}
+      data: 0.09033779054880142
+    sm_rootzone_gleam:
+      dims: []
+      attrs: {}
+      data: 0.10296279937028885
+    sm_surface_gleam:
+      dims: []
+      attrs: {}
+      data: 0.11603958904743195
+    streamflow_mm:
+      dims: []
+      attrs: {}
+      data: 2.3328001499176025
+    tmax_cpc:
+      dims: []
+      attrs: {}
+      data: 4.801815032958984
+    tmax_era5land:
+      dims: []
+      attrs: {}
+      data: 4.531426429748535
+    tmean_era5land:
+      dims: []
+      attrs: {}
+      data: 4.108767032623291
+    tmin_cpc:
+      dims: []
+      attrs: {}
+      data: 4.280488967895508
+    tmin_era5land:
+      dims: []
+      attrs: {}
+      data: 4.154096603393555
+xarray_feature_center:
+  coords: {}
+  attrs: {}
+  dims: {}
+  data_vars:
+    aet_era5land:
+      dims: []
+      attrs: {}
+      data: 2.7183828353881836
+    aet_gleam:
+      dims: []
+      attrs: {}
+      data: 2.3958113193511963
+    p_chirps:
+      dims: []
+      attrs: {}
+      data: 3.956737518310547
+    p_cpc:
+      dims: []
+      attrs: {}
+      data: 3.409648895263672
+    p_era5land:
+      dims: []
+      attrs: {}
+      data: 3.885826587677002
+    p_mswep:
+      dims: []
+      attrs: {}
+      data: 3.838202953338623
+    pet_era5land:
+      dims: []
+      attrs: {}
+      data: 8.308049201965332
+    pet_gleam:
+      dims: []
+      attrs: {}
+      data: 3.6510674953460693
+    sm_layer1_era5land:
+      dims: []
+      attrs: {}
+      data: 0.35223740339279175
+    sm_layer2_era5land:
+      dims: []
+      attrs: {}
+      data: 0.36171406507492065
+    sm_layer3_era5land:
+      dims: []
+      attrs: {}
+      data: 0.36395758390426636
+    sm_layer4_era5land:
+      dims: []
+      attrs: {}
+      data: 0.3935198485851288
+    sm_rootzone_gleam:
+      dims: []
+      attrs: {}
+      data: 0.33344778418540955
+    sm_surface_gleam:
+      dims: []
+      attrs: {}
+      data: 0.30804622173309326
+    streamflow_mm:
+      dims: []
+      attrs: {}
+      data: 1.345518708229065
+    tmax_cpc:
+      dims: []
+      attrs: {}
+      data: 28.02633285522461
+    tmax_era5land:
+      dims: []
+      attrs: {}
+      data: 26.432525634765625
+    tmean_era5land:
+      dims: []
+      attrs: {}
+      data: 21.65154266357422
+    tmin_cpc:
+      dims: []
+      attrs: {}
+      data: 17.554697036743164
+    tmin_era5land:
+      dims: []
+      attrs: {}
+      data: 17.665040969848633

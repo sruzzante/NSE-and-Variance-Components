@@ -1,0 +1,126 @@
+batch_size: 256
+clip_gradient_norm: 1
+clip_targets_to_zero:
+- streamflow_mm
+commit_hash: 76d0850
+data_dir: 
+  ../../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/camels-br
+dataset: camelsbr_v1p2
+device: cuda:0
+dynamic_inputs:
+- p_chirps
+- p_cpc
+- p_era5land
+- p_mswep
+- aet_gleam
+- aet_era5land
+- pet_gleam
+- pet_era5land
+- tmax_cpc
+- tmax_era5land
+- tmean_era5land
+- tmin_cpc
+- tmin_era5land
+- sm_surface_gleam
+- sm_rootzone_gleam
+- sm_layer1_era5land
+- sm_layer2_era5land
+- sm_layer3_era5land
+- sm_layer4_era5land
+epochs: 50
+experiment_name: test_run
+head: regression
+hidden_size: 256
+img_log_dir: 
+  /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/test_run_2605_194845/img_log
+initial_forget_bias: 3
+learning_rate:
+  0: 0.0001
+  30: 1e-05
+  40: 5e-06
+log_interval: 5000
+log_n_figures: 1
+log_tensorboard: true
+loss: nse
+metrics:
+- NSE
+- KGE
+model: cudalstm
+num_workers: 2
+number_of_basins: 897
+optimizer: Adam
+output_activation: linear
+output_dropout: 0.4
+package_version: 1.11.0
+predict_last_n: 1
+run_dir: 
+  /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/test_run_2605_194845
+save_validation_results: true
+save_weights_every: 1
+seed: 674526
+seq_length: 365
+static_attributes:
+- p_mean
+- pet_mean
+- et_mean
+- aridity
+- p_seasonality
+- asynchronicity
+- high_prec_freq
+- high_prec_dur
+- low_prec_freq
+- low_prec_dur
+- carb_rocks_perc
+- geol_porosity
+- geol_permeability
+- consumptive_use
+- consumptive_use_perc
+- reservoirs_vol
+- regulation_degree
+- q_mean
+- runoff_ratio
+- stream_elas
+- hfd_mean
+- Q5
+- Q95
+- high_q_freq
+- high_q_dur
+- low_q_freq
+- low_q_dur
+- zero_q_freq
+- crop_perc
+- crop_mosaic_perc
+- forest_perc
+- shrub_perc
+- grass_perc
+- barren_perc
+- imperv_perc
+- wet_perc
+- gauge_lat
+- gauge_lon
+- area_gsim
+- sand_perc
+- silt_perc
+- clay_perc
+- org_carbon_content
+- bedrock_depth
+- water_table_depth
+- elev_gauge
+- elev_mean
+- slope_mean
+target_variables:
+- streamflow_mm
+test_basin_file: allbasins.txt
+test_end_date: 31/12/2009
+test_start_date: 01/01/1990
+train_basin_file: allbasins.txt
+train_dir: 
+  /lustre06/project/6018060/ruzzante/climatological_benchmarks/lstm-camelsbr/runs/test_run_2605_194845/train_data
+train_end_date: 30/12/2020
+train_start_date: 01/01/2010
+use_basin_id_encoding: true
+validate_every: 1
+validate_n_random_basins: 897
+validation_basin_file: allbasins.txt
+validation_end_date: 31/12/1989
+validation_start_date: 01/01/1980
