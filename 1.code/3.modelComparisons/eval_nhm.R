@@ -23,7 +23,7 @@ library(lubridate)
 library(stringr)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
 
-source('1.code/utils.R')
+source("1.code/5.utils/utils.R")
 
 # read station metadata
 stns<-read.csv("../DATA/1.Spatial_data/regional/USA/sw_surfacewater_streamflow_runoff_river_network_waterstress/sw1_USGS_NHM/GAGE_ID_crosswalk/poi_gage_id.csv",colClasses = "character")%>%

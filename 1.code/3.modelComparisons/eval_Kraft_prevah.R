@@ -19,7 +19,7 @@ library(tmap)
 library(tictoc)
 library(lubridate)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source('1.code/utils.R')
+source("1.code/5.utils/utils.R")
 
 # load ncdf data
 dat_nc<-ncdf4::nc_open("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/Kraft2025/chrun_obs_grid.nc")

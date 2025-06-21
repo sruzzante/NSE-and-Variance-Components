@@ -18,7 +18,7 @@ library(tmap)
 library(tictoc)
 library(lubridate)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source('1.code/utils.R')
+source("1.code/5.utils/utils.R")
 
 
 # observed discharge data
@@ -50,7 +50,7 @@ stnSeas<-vector(mode = "list", length = nrow(stns))
 
 
 # initialize dataframe to store variance components
-stn_var<-data.frame(gauge_id = stns$gauge_id,
+stn_var<-data.frame(ID = stns$ID,
                     varSeas_stl = NA,
                     varInterannual_stl = NA,
                     varRem_stl = NA,

@@ -28,16 +28,16 @@ reticulate::py_require("xarray")
 pd <- import("pandas")
 
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source('1.code/utils.R')
+source("1.code/5.utils/utils.R")
 
 
 # read in pickle files with simulated streamflow for the test period (1990-2009)
 pickle_data<-list()
-pickle_data[[1]] <- pd$read_pickle("lstm-camelsbr/runs/test_run_2605_194845/test/model_epoch004/test_results.p")
-pickle_data[[2]] <- pd$read_pickle("lstm-camelsbr/runs/ens1_2705_130421/test/model_epoch002/test_results.p")
-pickle_data[[3]] <- pd$read_pickle("lstm-camelsbr/runs/ens2_2705_164646/test/model_epoch006/test_results.p")
-pickle_data[[4]] <- pd$read_pickle("lstm-camelsbr/runs/ens3_2705_154103/test/model_epoch003/test_results.p")
-pickle_data[[5]] <- pd$read_pickle("lstm-camelsbr/runs/ens4_2705_154103/test/model_epoch003/test_results.p")
+pickle_data[[1]] <- pd$read_pickle("4.lstm-camelsbr/runs/test_run_2605_194845/test/model_epoch004/test_results.p")
+pickle_data[[2]] <- pd$read_pickle("4.lstm-camelsbr/runs/ens1_2705_130421/test/model_epoch002/test_results.p")
+pickle_data[[3]] <- pd$read_pickle("4.lstm-camelsbr/runs/ens2_2705_164646/test/model_epoch006/test_results.p")
+pickle_data[[4]] <- pd$read_pickle("4.lstm-camelsbr/runs/ens3_2705_154103/test/model_epoch003/test_results.p")
+pickle_data[[5]] <- pd$read_pickle("4.lstm-camelsbr/runs/ens4_2705_154103/test/model_epoch003/test_results.p")
 
 IDs<-names(pickle_data[[1]])
 
@@ -62,6 +62,7 @@ for(it in 1:nrow(stns)){
   dat_ls<-list()
   for(it_ens in 1:5){
     
+    xarray_dat<-pickle_data[[it_ens]][[it]]$`1D`$xr
     # Use reticulate to extract the datetime64[ns] array from Python as a list
     py_dates <- xarray_dat$date$data
     
@@ -69,7 +70,6 @@ for(it in 1:nrow(stns)){
     dates <- sapply(py_dates, function(d) as.Date(py_to_r(d)))
     
     
-    xarray_dat<-pickle_data[[it_ens]][[it]]$`1D`$xr
     
     dates <- sapply(xarray_dat$date         $data, function(d) as.Date(py_to_r(d)))
     
@@ -116,8 +116,7 @@ stns<-data.frame(
 stns$mdl<-"lstm-camels-br"
 
 x<-bind_rows(stnPerf)%>%
-  left_join(bind_rows(stnSeas))%>%
-  left_join(stn_var)
+  left_join(bind_rows(stnSeas))
 
 
 stns<-left_join(stns,x)

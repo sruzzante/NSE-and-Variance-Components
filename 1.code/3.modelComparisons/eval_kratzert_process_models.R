@@ -19,7 +19,7 @@ library(tictoc)
 library(lubridate)
 library(stringr)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source('1.code/utils.R')
+source("1.code/5.utils/utils.R")
 
 # path to dataset save directory
 pth = "../DATA/1.Spatial_data/regional/USA/sw_surfacewater_streamflow_runoff_river_network_waterstress/camels_benchmark/netcdf/"
@@ -99,27 +99,7 @@ for(it_mdl in 1:length(mdls)){
     stnSeas[[it]] = data.frame(gauge_id = stns$gauge_id[it],
                                CoV = seas["CoV"],
                                QCI = seas["QCI"])
-    
-    s # calculate variance components
-    
-    # STL decomposition
-    stl_var_x<-stl_var(dat,s.window = 7,t.window = 365) 
-    stn_var$varSeas_stl[it] <-stl_var_x["varSeas"] 
-    stn_var$varInterannual_stl[it] <-stl_var_x["varInterannual"] 
-    stn_var$varRem_stl[it] <-stl_var_x["varRem"]    
-    
-    #classical decomposition
-    clas_var_x<-clas_var(dat)    
-    stn_var$varSeas_clas[it] <-clas_var_x["varSeas"]  
-    stn_var$varInterannual_clas[it] <-clas_var_x["varInterannual"]  
-    stn_var$varRem_clas[it] <-clas_var_x["varRem"]
-    
-    # Fourier decomposition
-    fourier_var_x<-fourier_var(dat)    
-    stn_var$varSeas_fourier[it] <-fourier_var_x["varSeas"]  
-    stn_var$varInterannual_fourier[it] <-fourier_var_x["varInterannual"]  
-    stn_var$varRem_fourier[it] <-fourier_var_x["varRem"]
-    
+
     
     
     toc()
@@ -128,8 +108,7 @@ for(it_mdl in 1:length(mdls)){
   stns$mdl<-mdls[it_mdl]
   
   x<-bind_rows(stnPerf)%>%
-    left_join(bind_rows(stnSeas))%>%
-  left_join(stn_var)
+    left_join(bind_rows(stnSeas))
 
 
 

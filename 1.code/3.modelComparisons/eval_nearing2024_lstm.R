@@ -22,7 +22,7 @@ library(lubridate)
 library(stringr)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
 
-source('1.code/utils.R')
+source("1.code/5.utils/utils.R")
 
 pth = "../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/Nearing2024/"
 

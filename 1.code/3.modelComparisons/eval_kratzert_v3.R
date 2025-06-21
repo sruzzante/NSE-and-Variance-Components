@@ -21,7 +21,7 @@ library(tidyr)
 library(reticulate)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
 use_python("/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Compiler/gcccore/python/3.11.5/bin/python3", required = TRUE)
-source('1.code/utils.R')
+source("1.code/5.utils/utils.R")
 
 
 Sys.setenv(UV_OFFLINE=1)
