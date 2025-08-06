@@ -1,7 +1,8 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
+
 
 
 # Delaigue, O., Guimarães, G. M., Brigode, P., Génot, B., Perrin, C., Soubeyroux, J.-M., Janet, B., Addor, N., & Andréassian, V. (2024). CAMELS-FR dataset: A large-sample hydroclimatic dataset for France to explore hydrological diversity and support model benchmarking. Earth System Science Data Discussions, 1–27. https://doi.org/10.5194/essd-2024-415
@@ -16,7 +17,7 @@ library(tmap)
 library(tictoc)
 library(lubridate)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source("1.code/utils.R")
+source("1.code/5.utils/utils.R")
 
 
 ## CAMELS-fr ########

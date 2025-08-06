@@ -1,7 +1,8 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
+
 
 
 # Alvarez-Garreton, C., Mendoza, P. A., Boisier, J. P., Addor, N., Galleguillos, M., Zambrano-Bigiarini, M., Lara, A., Puelma, C., Cortes, G., Garreaud, R., McPhee, J., & Ayala, A. (2018). The CAMELS-CL dataset: Catchment attributes and meteorology for large sample studies – Chile dataset. Hydrology and Earth System Sciences, 22(11), 5817–5846. https://doi.org/10.5194/hess-22-5817-2018
@@ -18,7 +19,7 @@ library(tictoc)
 library(lubridate)
 library(stringr)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source("1.code/utils.R")
+source("1.code/5.utils/utils.R")
 
 
 ## CAMELS-CL ########

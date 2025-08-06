@@ -2,7 +2,8 @@
 
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: # Last Update: 2025-08-06
+
 
 # Camels-BR-v2 data:
 # Chagas, V. B. P., Chaffe, P. L. B., Addor, N., Fan, F. M., Fleischmann, A. S., Paiva, R. C. D., & Siqueira, V. A. (2020). CAMELS-BR: Hydrometeorological time series and landscape attributes for 897 catchments in Brazil. Earth System Science Data, 12(3), 2075–2096. https://doi.org/10.5194/essd-12-2075-2020
@@ -21,7 +22,7 @@ library(tmap)
 library(tictoc)
 library(lubridate)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source("1.code/utils.R")
+source("1.code/5.utils/utils.R")
 
 
 ## CAMELS-BR ########

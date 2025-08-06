@@ -1,7 +1,7 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
 
 # Camels-AUS-v2 data:
 # Fowler, K. J. A., Zhang, Z., & Hou, X. (2024). CAMELS-AUS v2: Updated hydrometeorological timeseries and landscape attributes for an enlarged set of catchments in Australia. Earth System Science Data Discussions, 1–21. https://doi.org/10.5194/essd-2024-263
@@ -17,7 +17,7 @@ library(sf)
 library(tictoc)
 library(lubridate)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source("1.code/utils.R")
+source("1.code/5.utils/utils.R")
 
 
 ## CAMELS-AUS-V2 ########

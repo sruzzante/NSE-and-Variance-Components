@@ -1,7 +1,8 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
+
 
 
 # Liu, J., Koch, J., Stisen, S., Troldborg, L., Højberg, A. L., Thodsen, H., Hansen, M. F. T., & Schneider, R. J. M. (2024). CAMELS-DK: Hydrometeorological Time Series and Landscape Attributes for 3330 Catchments in Denmark. Earth System Science Data Discussions, 1–30. https://doi.org/10.5194/essd-2024-292
@@ -18,7 +19,7 @@ library(tictoc)
 library(lubridate)
 library(stringr)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source("1.code/utils.R")
+source("1.code/5.utils/utils.R")
 
 
 ## CAMELS-DK ########

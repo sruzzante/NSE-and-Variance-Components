@@ -1,7 +1,7 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
 
 # Arcticnet data:
 #Lammers, R. B., & Shiklomanov, A. I. (2000). R-ArcticNet, A Regional Hydrographic Data Network for the Pan-Arctic Region. [Dataset]. https://www.r-arcticnet.sr.unh.edu/v4.0/AllData/index.html
@@ -18,7 +18,7 @@ library(tictoc)
 library(lubridate)
 library(tidyr)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source("1.code/utils.R")
+source("1.code/5.utils/utils.R")
 
 
 ## arcticnet ########

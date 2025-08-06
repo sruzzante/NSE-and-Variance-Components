@@ -1,7 +1,8 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
+
 
 
 # Helgason, H. B., & Nijssen, B. (2024). LamaH-Ice: LArge-SaMple DAta for Hydrology and Environmental Sciences for Iceland. Earth System Science Data, 16(6), 2741–2771. https://doi.org/10.5194/essd-16-2741-2024
@@ -17,7 +18,7 @@ library(tmap)
 library(tictoc)
 library(lubridate)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source("1.code/utils.R")
+source("1.code/5.utils/utils.R")
 
 
 ## CAMELS-ice ########

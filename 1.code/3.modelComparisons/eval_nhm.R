@@ -1,7 +1,7 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
 
 # Evaluate National Hydrologic Model
 # Regan, R. S., Juracek, K. E., Hay, L. E., Markstrom, S. L., Viger, R. J., Driscoll, J. M., LaFontaine, J. H., & Norton, P. A. (2019). The U. S. Geological Survey National Hydrologic Model infrastructure: Rationale, description, and application of a watershed-scale model for the conterminous United States. Environmental Modelling & Software, 111, 192–203. https://doi.org/10.1016/j.envsoft.2018.09.023
@@ -69,6 +69,12 @@ stn_var<-data.frame(poi_gage_id = stns$poi_gage_id,
                     varInterannual_fourier = NA,
                     varRem_fourier = NA
 )
+
+# initialize list to store goodness of fit for variance components
+stnCompNSE<- vector(mode = "list", length = nrow(stns))
+
+
+
 for(it in 1:nrow(stns)){
   tic(sprintf("station %d",it))
   if(stns$poi_gage_segment[it]==0){next}
@@ -133,6 +139,13 @@ for(it in 1:nrow(stns)){
                              QCI = seas["QCI"])
   
   
+  # Goodness of fit of variance components
+  NSE_comps<- gof_components(dat)
+  NSE_comps$poi_gage_id<-stns$poi_gage_id[it]
+  stnCompNSE[[it]] = data.frame(NSE_comps)
+  
+  
+  
   dat<-mutate(dat,
               q = QObs,
               year  =year(dt),
@@ -169,6 +182,8 @@ stns$mdl<-"nhm-ref"
 
 x<-bind_rows(stnPerf)%>%
   left_join(bind_rows(stnSeas))%>%
+  left_join(bind_rows(stnCompNSE),by = c("poi_gage_id"),suffix = c("",".maxRun"))%>%
+
   left_join(stn_var)
 
 

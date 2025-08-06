@@ -3,7 +3,7 @@ sachawruzzante@gmail.com
 Last Update: 2025-06-18
 
 
-Technical Note: The Nash Sutcliffe Efficiency conceals inferior representations of hydrologic variability in seasonal regimes
+Technical Note: High Nash Sutcliffe Efficiencies conceal poor simulations of interannual variance in tropical, alpine, and polar catchments
 
 These scripts calculate goodness of fit statistics (NSE, KGE, and KGE components) for 19 large-sample hydrology datasets. The scripts also decompose the time series into interannual, seasonal, and irregular components, using three techniques: classical decomposition, a variation of STL, and a decomposition based on a fast fourier transform, as described in the manuscript. 
 

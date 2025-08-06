@@ -1,7 +1,7 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
 
 # Evaluate GLOFAS from Nearing et al (2024)
 # Nearing, G., Cohen, D., Dube, V., Gauch, M., Gilon, O., Harrigan, S., Hassidim, A., Klotz, D., Kratzert, F., Metzger, A., Nevo, S., Pappenberger, F., Prudhomme, C., Shalev, G., Shenzis, S., Tekalign, T. Y., Weitzner, D., & Matias, Y. (2024). Global prediction of extreme floods in ungauged watersheds. Nature, 627(8004), 559–563. https://doi.org/10.1038/s41586-024-07145-1
@@ -86,6 +86,9 @@ stn_var<-data.frame(gauge_ID = stns$gauge_ID,
                     varInterannual_fourier = NA,
                     varRem_fourier = NA
 )
+# initialize list to store goodness of fit for variance components
+stnCompNSE<- vector(mode = "list", length = nrow(stns))
+
 
 for(it in 1:nrow(stns)){
   tic(sprintf("station %d",it))
@@ -127,6 +130,13 @@ for(it in 1:nrow(stns)){
                              CoV = seas["CoV"],
                              QCI = seas["QCI"])
   
+  # Goodness of fit of variance components
+  NSE_comps<- gof_components(dat)
+  NSE_comps$gauge_ID<-stns$gauge_ID[it]
+  stnCompNSE[[it]] = data.frame(NSE_comps)
+  
+  
+  
   dat<-mutate(dat,
               q = QObs,
               year  =year(dt),
@@ -162,6 +172,7 @@ for(it in 1:nrow(stns)){
 
 x<-bind_rows(stnPerf)%>%
   left_join(bind_rows(stnSeas))%>%
+  left_join(bind_rows(stnCompNSE),by = c("gauge_ID"),suffix = c("",".maxRun"))%>%
   left_join(stn_var)
 
 stns<-left_join(stns,x)%>%st_drop_geometry()

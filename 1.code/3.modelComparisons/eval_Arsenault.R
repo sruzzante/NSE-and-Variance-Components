@@ -1,7 +1,7 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
 
 # Evaluate Arsenault LSTM
 # Arsenault, R., Martel, J.-L., Brunet, F., Brissette, F., & Mai, J. (2023). Continuous streamflow prediction in ungauged basins: Long short-term memory neural networks clearly outperform traditional hydrological models. Hydrology and Earth System Sciences, 27(1), 139–157. https://doi.org/10.5194/hess-27-139-2023
@@ -23,7 +23,7 @@ source("1.code/5.utils/utils.R")
 
 # observed discharge data
 dat_nc<-ncdf4::nc_open("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/Arsenault2023/Data/NortheastNA_regionalization_data.nc")
-
+x<-st_read("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/Arsenault2023/Shapefiles/shapefiles_148_hysets_regionalization_paper.shp")
 dates<-ymd("0000-01-01")+
   ncvar_get(dat_nc,
             "time")-1
@@ -39,7 +39,12 @@ stns<-data.frame(ID = 0:147,
 )%>%
   st_as_sf(coords = c("lon","lat"),remove = FALSE,crs = "EPSG:4326")
 
+plot(stns$area,x$Area)
+stns$ID<-x$OfficialID
 
+# stns<-left_join(stns%>%mutate(area = round(area)),
+#                 x%>%select(Area,OfficialID)%>%st_drop_geometry()%>%mutate(Area = round(Area)),
+#                 by = c("area" = "Area"))
 
 
 # initialize list to store performance metrics
@@ -61,6 +66,9 @@ stn_var<-data.frame(ID = stns$ID,
                     varInterannual_fourier = NA,
                     varRem_fourier = NA
 )
+# initialize list to store goodness of fit for variance components
+stnCompNSE<- vector(mode = "list", length = nrow(stns))
+
 
 # loop through stations
 
@@ -91,10 +99,20 @@ for(it in 1:nrow(stns)){
                              CoV = seas["CoV"],
                              QCI = seas["QCI"])
   
+  
+  # Goodness of fit of variance components
+  NSE_comps<- gof_components(dat)
+  NSE_comps$ID<-stns$ID[it]
+  stnCompNSE[[it]] = data.frame(NSE_comps)
+  
+  
+  
   dat<-mutate(dat,
               q = QObs,
               year  =year(dt),
               yday = pmin(yday(dt),365))
+  
+  
   
   # calculate variance components
   
@@ -126,6 +144,10 @@ stns$mdl<-"lstm-arsenault2022"
 
 x<-bind_rows(stnPerf)%>%
   left_join(bind_rows(stnSeas))%>%
+  left_join(bind_rows(stnCompNSE),by = c("ID"),suffix = c("",".maxRun"))%>%
+
+
+
   left_join(stn_var)
 
 stns<-left_join(stns,x)

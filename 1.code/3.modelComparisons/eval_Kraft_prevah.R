@@ -1,7 +1,7 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
 
 # Evaluate PREVAH model from Kraft (2025)
 # Kraft, B., Schirmer, M., Aeberhard, W. H., Zappa, M., Seneviratne, S. I., & Gudmundsson, L. (2025). CH-RUN: A deep-learning-based spatially contiguous runoff reconstruction for Switzerland. Hydrology and Earth System Sciences, 29(4), 1061–1082. https://doi.org/10.5194/hess-29-1061-2025
@@ -54,6 +54,9 @@ stn_var<-data.frame(ID = stns$ID,
 )
 
 
+stnCompNSE<- vector(mode = "list", length = nrow(stns))
+# loop through stations
+
 for(it in 1:nrow(stns)){
   tic(sprintf("station %d",it))
   
@@ -82,6 +85,11 @@ for(it in 1:nrow(stns)){
   stnSeas[[it]] = data.frame(gauge_id = stns$ID[it],
                              CoV = seas["CoV"],
                              QCI = seas["QCI"])
+  
+  # Goodness of fit of variance components
+  NSE_comps<- gof_components(dat)
+  NSE_comps$ID<-stns$ID[it]
+  stnCompNSE[[it]] = data.frame(NSE_comps)
   
   
   dat<-mutate(dat,
@@ -115,13 +123,14 @@ for(it in 1:nrow(stns)){
 # is the benchmark efficiency worse in high-NSE benchmark stations
 stns$mdl<-"prevah-Kraft2025"
 
+
 x<-bind_rows(stnPerf)%>%
   left_join(bind_rows(stnSeas),by = c("ID" = "gauge_id"))%>%
+  left_join(bind_rows(stnCompNSE),by = c("ID"),suffix = c("",".maxRun"))%>%
   left_join(stn_var)
 
-
-
 stns<-left_join(stns,x)
+
 write.csv(stns,"2.data/highLowBenchmarkGOF/GOF_Kraft_Prevah.csv")
 
 

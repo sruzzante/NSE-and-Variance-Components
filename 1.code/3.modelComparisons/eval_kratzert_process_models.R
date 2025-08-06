@@ -1,7 +1,7 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update:2025-08-06
 
 
 # evaluate the camels benchmarks compiled by Kratzert (2019)
@@ -66,6 +66,10 @@ for(it_mdl in 1:length(mdls)){
                       varRem_fourier = NA
   )
   
+  # initialize list to store goodness of fit for variance components
+  stnCompNSE<- vector(mode = "list", length = nrow(stns))
+  
+  
   for(it in 1:nrow(stns)){
     tic(sprintf("station %d",it))
     
@@ -99,6 +103,33 @@ for(it_mdl in 1:length(mdls)){
     stnSeas[[it]] = data.frame(gauge_id = stns$gauge_id[it],
                                CoV = seas["CoV"],
                                QCI = seas["QCI"])
+    
+    # Goodness of fit of variance components
+    NSE_comps<- gof_components(dat)
+    NSE_comps$gauge_id<-stns$gauge_id[it]
+    stnCompNSE[[it]] = data.frame(NSE_comps)
+    
+    dat<-mutate(dat,
+                q = QObs,
+                year  =year(dt),
+                yday = pmin(yday(dt),365))
+    # STL decomposition
+    stl_var_x<-stl_var(dat,s.window = 7,t.window = 365) 
+    stn_var$varSeas_stl[it] <-stl_var_x["varSeas"] 
+    stn_var$varInterannual_stl[it] <-stl_var_x["varInterannual"] 
+    stn_var$varRem_stl[it] <-stl_var_x["varRem"]    
+    
+    #classical decomposition
+    clas_var_x<-clas_var(dat)    
+    stn_var$varSeas_clas[it] <-clas_var_x["varSeas"]  
+    stn_var$varInterannual_clas[it] <-clas_var_x["varInterannual"]  
+    stn_var$varRem_clas[it] <-clas_var_x["varRem"]
+    
+    # Fourier decomposition
+    fourier_var_x<-fourier_var(dat)    
+    stn_var$varSeas_fourier[it] <-fourier_var_x["varSeas"]  
+    stn_var$varInterannual_fourier[it] <-fourier_var_x["varInterannual"]  
+    stn_var$varRem_fourier[it] <-fourier_var_x["varRem"]
 
     
     
@@ -108,7 +139,10 @@ for(it_mdl in 1:length(mdls)){
   stns$mdl<-mdls[it_mdl]
   
   x<-bind_rows(stnPerf)%>%
-    left_join(bind_rows(stnSeas))
+    left_join(bind_rows(stnSeas))%>%
+    left_join(bind_rows(stnCompNSE),by = c("gauge_id"),suffix = c("",".maxRun"))%>%
+    left_join(stn_var)
+  
 
 
 

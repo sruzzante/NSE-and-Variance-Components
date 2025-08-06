@@ -1,7 +1,7 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-19
+# Last Update: 2025-08-06
 
 # This script plots the variance components (Figure 1 ).
 

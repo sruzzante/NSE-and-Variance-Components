@@ -1,7 +1,8 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
+
 
 
 # Dolich, A., Maharjan, A., Mälicke, M., Manoj J, A., & Loritz, R. (2025). Caravan-DE: Caravan extension Germany - German dataset for large-sample hydrology [Dataset]. Zenodo. https://zenodo.org/records/14755229
@@ -16,7 +17,7 @@ library(tmap)
 library(tictoc)
 library(lubridate)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
-source("1.code/utils.R")
+source("1.code/5.utils/utils.R")
 
 
 ## caravan extension germany ########

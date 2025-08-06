@@ -1,7 +1,7 @@
 # climatological benchmarks and variance components
 # Author: Sacha Ruzzante
 # sachawruzzante@gmail.com
-# Last Update: 2025-06-18
+# Last Update: 2025-08-06
 
 # Evaluate Kratzert LSTM
 # Kratzert, F., Gauch, M., Klotz, D., & Nearing, G. (2024). HESS Opinions: Never train a Long Short-Term Memory (LSTM) network on a single basin. Hydrology and Earth System Sciences, 28(17), 4187–4201. https://doi.org/10.5194/hess-28-4187-2024
@@ -14,7 +14,7 @@ library(dplyr)
 library(ggplot2)
 library(hydroGOF)
 library(sf)
-library(tmap)
+# library(tmap)
 library(tictoc)
 library(lubridate)
 library(tidyr)
@@ -64,7 +64,22 @@ stnPerf<-vector(mode = "list", length = nrow(stns))
 stnSeas<-vector(mode = "list", length = nrow(stns))
 
 
+# initialize list to store goodness of fit for variance components
+stnCompNSE<- vector(mode = "list", length = nrow(stns))
 
+
+# initialize dataframe to store variance components
+stn_var<-data.frame(gauge_id = stns$gauge_id,
+                    varSeas_stl = NA,
+                    varInterannual_stl = NA,
+                    varRem_stl = NA,
+                    varSeas_clas = NA,
+                    varInterannual_clas = NA,
+                    varRem_clas = NA,
+                    varSeas_fourier = NA,
+                    varInterannual_fourier = NA,
+                    varRem_fourier = NA
+)
 # loop through stations
 for(it in 1:nrow(stns)){
   tic(sprintf("station %d",it))
@@ -105,6 +120,50 @@ for(it in 1:nrow(stns)){
                              QCI = seas["QCI"])
   
   
+  # Goodness of fit of variance components
+  NSE_comps<- gof_components(dat)
+  NSE_comps$gauge_id<-stns$gauge_id[it]
+  
+  
+  dat<-mutate(dat,
+              q = QObs,
+              year  =year(dt),
+              yday = pmin(yday(dt),365))
+  
+  
+  comps<-fourier_var(dat)
+  NSE_comps$NSE_sumComps = 
+  comps["varSeas"]*NSE_comps[["NSE.Seas"]]+
+    comps["varRem"]*NSE_comps[["NSE.Rem"]]+
+    comps["varInterannual"]*NSE_comps[["NSE.Interannual"]]
+  
+  stnCompNSE[[it]] = data.frame(NSE_comps)
+  
+  
+  dat<-mutate(dat,
+              q = QObs,
+              year  =year(dt),
+              yday = pmin(yday(dt),365))
+  # STL decomposition
+  stl_var_x<-stl_var(dat,s.window = 7,t.window = 365) 
+  stn_var$varSeas_stl[it] <-stl_var_x["varSeas"] 
+  stn_var$varInterannual_stl[it] <-stl_var_x["varInterannual"] 
+  stn_var$varRem_stl[it] <-stl_var_x["varRem"]    
+  
+  #classical decomposition
+  clas_var_x<-clas_var(dat)    
+  stn_var$varSeas_clas[it] <-clas_var_x["varSeas"]  
+  stn_var$varInterannual_clas[it] <-clas_var_x["varInterannual"]  
+  stn_var$varRem_clas[it] <-clas_var_x["varRem"]
+  
+  # Fourier decomposition
+  fourier_var_x<-fourier_var(dat)    
+  stn_var$varSeas_fourier[it] <-fourier_var_x["varSeas"]  
+  stn_var$varInterannual_fourier[it] <-fourier_var_x["varInterannual"]  
+  stn_var$varRem_fourier[it] <-fourier_var_x["varRem"]
+  
+  
+  
   toc()
 }
 
@@ -115,10 +174,17 @@ stns$mdl<-"lstm-kratzert2024"
 
 
 x<-bind_rows(stnPerf)%>%
-  left_join(bind_rows(stnSeas))
+  left_join(bind_rows(stnSeas))%>%
+  left_join(bind_rows(stnCompNSE),by = c("gauge_id"),suffix = c("",".maxRun"))%>%
+  left_join(stn_var)
+
+
+
 
 
 stns<-left_join(stns,x)
 write.csv(stns%>%st_drop_geometry(),"2.data/highLowBenchmarkGOF/GOF_kratzert_lstm.csv")
 
 
+b<-bind_rows(stnCompNSE)
+ggplot(b,aes(x =NSE,y  = NSE_sumComps))+geom_point()+geom_abline()

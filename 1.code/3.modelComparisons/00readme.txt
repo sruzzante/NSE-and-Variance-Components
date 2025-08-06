@@ -1,6 +1,6 @@
 Author: Sacha Ruzzante
 sachawruzzante@gmail.com
-Last Update: 2025-06-18
+Last Update: 2025-08-06
 
 Technical Note: The Nash Sutcliffe Efficiency conceals inferior representations of hydrologic variability in seasonal regimes
 
@@ -22,5 +22,21 @@ Mizukami, N., Rakovec, O., Newman, A. J., Clark, M. P., Wood, A. W., Gupta, H. V
 
 Newman, A. J., Mizukami, N., Clark, M. P., Wood, A. W., Nijssen, B., & Nearing, G. (2017). Benchmarking of a Physically Based Hydrologic Model. https://doi.org/10.1175/JHM-D-16-0284.1
 
+Yang, Y., Feng, D., Beck, H. E., Hu, W., Abbas, A., Sengupta, A., Delle Monache, L., Hartman, R., Lin, P., Shen, C., & Pan, M. (2025). Global Daily Discharge Estimation Based on Grid Long Short-Term Memory (LSTM) Model and River Routing. Water Resources Research, 61(6), e2024WR039764. https://doi.org/10.1029/2024WR039764
+
+Klingler, C., Schulz, K., and Herrnegger, M.: LamaH-CE: LArge-SaMple DAta for Hydrology and Environmental Sciences for Central Europe, Earth Syst. Sci. Data, 13, 4529–4565, https://doi.org/10.5194/essd-13-4529-2021, 2021.
+
+Song, Y., Bindas, T., Shen, C., Ji, H., Knoben, W. J. M., Lonzarich, L., Clark, M. P., Liu, J., van Werkhoven, K., Lamont, S., Denno, M., Pan, M., Yang, Y., Rapp, J., Kumar, M., Rahmani, F., Thébault, C., Adkins, R., Halgren, J., … Lawson, K. (2025). High-Resolution National-Scale Water Modeling Is Enhanced by Multiscale Differentiable Physics-Informed Machine Learning. Water Resources Research, 61(4), e2024WR038928. https://doi.org/10.1029/2024WR038928
+
+Chagas, V. B. P., Chaffe, P. L. B., Addor, N., Fan, F. M., Fleischmann, A. S., Paiva, R. C. D., & Siqueira, V. A. (2020). CAMELS-BR: Hydrometeorological time series and landscape attributes for 897 catchments in Brazil. Earth System Science Data, 12(3), 2075–2096. https://doi.org/10.5194/essd-12-2075-2020
+
+Nearing, G., Cohen, D., Dube, V., Gauch, M., Gilon, O., Harrigan, S., Hassidim, A., Klotz, D., Kratzert, F., Metzger, A., Nevo, S., Pappenberger, F., Prudhomme, C., Shalev, G., Shenzis, S., Tekalign, T. Y., Weitzner, D., & Matias, Y. (2024). Global prediction of extreme floods in ungauged watersheds. Nature, 627(8004), 559–563. https://doi.org/10.1038/s41586-024-07145-1
+
+Regan, R. S., Juracek, K. E., Hay, L. E., Markstrom, S. L., Viger, R. J., Driscoll, J. M., LaFontaine, J. H., & Norton, P. A. (2019). The U. S. Geological Survey National Hydrologic Model infrastructure: Rationale, description, and application of a watershed-scale model for the conterminous United States. Environmental Modelling & Software, 111, 192–203. https://doi.org/10.1016/j.envsoft.2018.09.023
+
+Schnorbus, M. (2018). VIC Glacier (VIC-GL)—Description of VIC model changes and upgrades, VIC Generation 2 Deployment Report (p. 40). Pacific Climate Impacts Consortium, University of Victoria. https://dspace.library.uvic.ca/server/api/core/bitstreams/850d5363-e326-4b13-bddc-f5cd6227c928/content
+
+
 The model for Brazil was developed for this publication - see the folder /lstm-camelsbr/
 The model for Arsenault et al (2023) was rerun using the provided code at https://osf.io/3s2pq/
+For the Yang et al (2025) model you need to source all the observation data yourself, then run part 1 to compile it.
