@@ -16,7 +16,7 @@ library(tictoc)
 library(lubridate)
 library(stringr)
 #install.packages("tricolore")
-library(tricolore)
+# library(tricolore)
 
 
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
@@ -148,7 +148,7 @@ stns%>%
   pivot_longer(cols = c('varRem_fourier', 'varSeas_fourier','varInterannual_fourier'))%>%
   mutate(lab = factor(name,levels = c('varInterannual_fourier', 'varSeas_fourier','varRem_fourier'),
                       labels = c(expression(sigma[interannual] ^2 / sigma[o]^2),expression(sigma[seasonal] ^2 /sigma[o]^2),expression(sigma[irregular]^2/sigma[o]^2)))
-         )%>%
+  )%>%
   ggplot(aes(x = value))+
   geom_histogram(breaks = seq(0,1,0.02))+
   scale_x_continuous(name = "Variance Fraction")+
@@ -290,12 +290,12 @@ p
 (p+ggtitle("Rhoads Fork near Rochford, SD")+
     # scale_y_continuous(name = "Q (cms)")+
     theme(
-  # strip.background = element_blank(),
-  # strip.text.y = element_blank(),
-  text = element_text(size = 7),
-  plot.background = element_rect(fill='white', color=NA), #transparent plot bg
-  
-))%>%
+      # strip.background = element_blank(),
+      # strip.text.y = element_blank(),
+      text = element_text(size = 7),
+      plot.background = element_rect(fill='white', color=NA), #transparent plot bg
+      
+    ))%>%
   ggsave(filename = "3.figures/fourier_Rhoads-Fork.png",width = 4,height = 3)
 
 
@@ -605,11 +605,11 @@ p
 (p+
     ggtitle("La Durdent à Vittefleur")+
     theme(
-  # strip.background = element_blank(),
-  # strip.text.y = element_blank(),
-  text = element_text(size = 7),
-  plot.background = element_rect(fill='white', color=NA), #transparent plot bg
-))%>%
+      # strip.background = element_blank(),
+      # strip.text.y = element_blank(),
+      text = element_text(size = 7),
+      plot.background = element_rect(fill='white', color=NA), #transparent plot bg
+    ))%>%
   ggsave(filename = "3.figures/fourier_G600061010.png",width = 4,height = 3)
 
 
@@ -710,11 +710,11 @@ p<-fourier_plot(dat,round.dec = -3)
 
 (p+ggtitle("Ysyry Paraguái")+
     theme(
-  # strip.background = element_blank(),
-  # strip.text.y = element_blank(),
-  text = element_text(size = 7),
-  plot.background = element_rect(fill='white', color=NA), #transparent plot bg
-))%>%
+      # strip.background = element_blank(),
+      # strip.text.y = element_blank(),
+      text = element_text(size = 7),
+      plot.background = element_rect(fill='white', color=NA), #transparent plot bg
+    ))%>%
   ggsave(filename = "3.figures/fourier_Paraguái-3368100.png",width = 4,height = 3,dpi = 1200)
 
 
@@ -859,7 +859,7 @@ p
 #camels-cl
 
 stns_cl<-read.csv("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/camels-cl/CAMELS_CL_v202201/catchment_attributes.csv",
-               quote = '')
+                  quote = '')
 
 streamflow_dat<-read.csv("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/camels-cl/CAMELS_CL_v202201/q_m3s_day.csv")
 
@@ -994,9 +994,9 @@ p<-fourier_plot(dat,round.dec = -3)
 
 
 dat<-read.delim(paste0("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/GRDC/asia/",
-                                        "2180712",
-                                        "_Q_Day.Cmd.txt"),
-                                 sep = ";",skip = 36,header =  TRUE)%>%
+                       "2180712",
+                       "_Q_Day.Cmd.txt"),
+                sep = ";",skip = 36,header =  TRUE)%>%
   mutate(dt = ymd(YYYY.MM.DD ),
          year = year(dt),
          month = month(dt),
@@ -1134,6 +1134,390 @@ p
 
 
 
+# plots for flowchart
+streamflow_dat<-read.csv("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/camels-aus-v2/streamflow_MLd.csv")
+
+dat<-streamflow_dat%>%
+  select(year,month,day,all_of("X226218"))%>%
+  mutate(dt = ymd(paste(year,month,day)),
+         yday = pmin(yday(dt),365))
+
+names(dat)[4]<-"q"
+
+fourier_plot(dat)
+
+
+# 	gauge_name
+# 223	Little Ouse at Abbey Heath
+
+dat<-read.csv(paste0(
+  "../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/camels-gb/data/timeseries/CAMELS_GB_hydromet_timeseries_",
+  33034,"_19701001-20150930.csv"
+))%>%
+  select(date,discharge_vol)%>%
+  mutate(q = discharge_vol,
+         dt = ymd(date),
+         year = year(date),
+         yday = pmin(yday(date),365))
+
+fourier_plot(dat)
+
+
+
+dat$t_diff<-c(NA,diff.Date(dat$dt))
+
+RunLengths<-rle(dat$t_diff)
+if(max(RunLengths$lengths[RunLengths$values==1],na.rm = TRUE)<3650){
+  return(c(
+    varSeas = NA,
+    varRem =  NA,
+    varInterannual = NA
+  ))
+}
+# take longest continuous run of data 
+RunLengths$start<-cumsum(RunLengths$lengths)
+maxRun<-which.max(RunLengths$lengths)
+
+
+dat<-dat[(RunLengths$start[maxRun-1]):
+           (RunLengths$start[(maxRun)]),]
+
+# calculate climatological mean of observed data
+dat_clim<-dat%>%
+  group_by(yday)%>%
+  summarise(seasonal.avg=mean(q),
+            N = n())
+dat<-left_join(dat,dat_clim,by = "yday")
+
+# calculate anomalies
+dat$q.anomaly<-dat$q-dat$seasonal.avg
+
+ggplot(data = dat,aes(dt,q.anomaly))+geom_line()+ scale_x_date(name = NULL)+
+  theme_bw()+
+  scale_y_continuous(name =expression(Anomaly~(m^3/s)),limits = c(-7,23) )
+
+ggsave("3.figures/flowchart/Q.anomaly.png",width = 3,height = 2,dpi = 1200)
+
+ggplot(data = dat,aes(dt,seasonal.avg))+geom_line()+ scale_x_date(name = NULL)+
+  theme_bw()+
+  scale_y_continuous(name =expression(Seasonal~(m^3/s)),limits = c(-10,20) )
+
+ggsave("3.figures/flowchart/Q.seasonal.png",width = 3,height = 2,dpi = 1200)
+
+# 
+# 
+
+
+
+# run
+FFT<-fft(dat$q.anomaly)
+
+# Need to centre the frequencies 
+freq <- (0:(nrow(dat)- 1)) / nrow(dat)
+freq <- ifelse(freq > 0.5, freq - 1, freq) * 365  # centered frequency for symmetry
+
+plot(abs(FFT))
+
+df_FFT = data.frame(freq,FFT_Mag = Mod(FFT))%>%
+  arrange(freq)%>%
+  
+  filter(freq>=0)%>%
+  mutate(PSD = FFT_Mag^2)
+
+conversion_factor = var(dat$q.anomaly)/(sum(df_FFT$PSD)*diff(df_FFT$freq)[1])
+
+df_FFT$PSD = df_FFT$PSD*conversion_factor
+# 
+# sp <- spec.pgram(dat$q.anomaly, taper = 0, fast = TRUE, plot = FALSE, demean = FALSE, detrend = TRUE,)
+# plot(sp)
+# sum(sp$spec) * diff(sp$freq)[1] * 365
+# df_FFT$PSD = sp$spec[1:nrow(df_FFT)]
+
+ggplot(df_FFT,aes(freq,PSD))+
+  geom_line()+
+  # geom_line(aes(y = FFT_mag_smooth),col = "blue")+
+  # geom_smooth()+
+  geom_vline(xintercept = 2,color = "red")+
+  scale_x_sqrt(name = expression(Frequency~(year^-1)),
+               breaks = c(0,2,50,100,200))+
+  scale_y_continuous(expression(Power~Spectral~Density~(m^2*s^-2*year)))+
+  
+  theme_bw(base_size = 7)+
+  theme(panel.grid.minor = element_blank())
+ggsave("3.figures/flowchart/Periodogram.png",width = 3,height = 2,dpi = 1200)
+
+sum(df_FFT$PSD[df_FFT$freq>2])*diff(df_FFT$freq)[1]
+sum(df_FFT$PSD[df_FFT$freq<=2])*diff(df_FFT$freq)[1]
+
+var(dat$q.anomaly)
+sum(df_FFT$PSD)*diff(df_FFT$freq)[1]
+
+var(dat$q.anomaly)/(sum(df_FFT$PSD)*diff(df_FFT$freq)[1])
+
+FFT_1<-FFT
+FFT_1[c(1:50,52:length(FFT_1))]<-0
+
+dat_FFT1 = Re(fft(FFT_1,inverse = TRUE))/nrow(dat)
+plot(dat_FFT1)
+var(dat_FFT1)
+sum(Mod(FFT_1)^2)/var(dat_FFT1)*diff(df_FFT$freq)[1]/86400
+
+# Define cutoff
+cutoff <- 2  # frequency cutoff ( cycles/year)
+
+# interannual component has frequencies below or at cutoff
+FFT_interannual<-FFT
+FFT_interannual[abs(freq) > cutoff]<-0
+# irregular component has frequencies above cutoff
+FFT_irregular<-FFT
+FFT_irregular[abs(freq) <= cutoff]<-0
+
+
+# compute inverse FFT of the two components
+dat$remainder<-Re(fft(FFT_irregular,inverse = TRUE))/nrow(dat)
+dat$interannual<-Re(fft(FFT_interannual,inverse = TRUE))/nrow(dat)
+
+
+
+
+ggplot(data = dat,aes(dt,remainder))+geom_line()+ scale_x_date(name = NULL)+
+  theme_bw()+
+  scale_y_continuous(name =expression(Irregular~(m^3/s)),limits = c(-10,20) )
+
+ggsave("3.figures/flowchart/Q.Irregular.png",width = 3,height = 2,dpi = 1200)
+
+
+ggplot(data = dat,aes(dt,interannual))+geom_line()+ scale_x_date(name = NULL)+
+  theme_bw()+
+  scale_y_continuous(name =expression(Interannual~(m^3/s)),limits = c(-10,20) )
+
+ggsave("3.figures/flowchart/Q.Interannual.png",width = 3,height = 2,dpi = 1200)
+var(dat$remainder)/var(dat$q  )
+
+var(dat$interannual)/var(dat$q  )
+
+
+
+
+
+
+
+ggplot(data = dat,aes(dt,q))+geom_line()+ scale_x_date(name = NULL)+
+  theme_bw()+
+  scale_y_continuous(name =expression(Q~(m^3/s)),limits = c(0,30) )
+ggsave("3.figures/flowchart/Q.png",width = 3,height = 2,dpi = 1200)
+
+# classical and STL plots
+# sturgeon weir
+
+nc_dat<-ncdf4::nc_open("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/hysets/HYSETS_2023_update_QC_stations.nc")
+time_length <- nc_dat$dim$time$len
+dt<-as.Date("1950-01-01")+
+  days(ncvar_get(nc = nc_dat,
+                 varid = "time"))
+
+yr = year(dt)
+mnth = month(dt)
+dy = day(dt)
+ydy = pmin(yday(dt),365)
+stns_hysets<-read.csv("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/hysets/HYSETS_watershed_properties.txt")
+it = which(stns_hysets$Official_ID=='05KG002')
+dat<-data.frame(q= ncvar_get(nc = nc_dat,
+                             varid = "discharge",
+                             start = c(1, stns_hysets$Watershed_ID[it]), # Start at the first time step and the desired catchment
+                             count = c(time_length, 1)),     # Read all time steps for the catchment)
+                dt = dt,
+                year = yr,
+                month = mnth,
+                day = dy,
+                yday = ydy
+)
+# ggplot(dat,aes(dt,y=q))+geom_line()+scale_y_log10()
+p<- stl_plot(dat,7,365)
+p+theme(text = element_text(size = 7))
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+  
+))%>%
+  ggsave(filename = "3.figures/stl_Sturgeon_Weir_05KG002.png",width = 2.23,height = 3)
+
+
+
+p<- stl_plot(dat,7,365,include.text = FALSE)
+
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+))%>%
+  ggsave(filename = "3.figures/stl_Sturgeon_Weir_05KG002_noText.png",width = 2.23,height = 3,dpi = 1200)
+
+# Sturgeon Weir classical
+
+p<- classical_plot  (dat,include.text = FALSE)
+
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+))%>%
+  ggsave(filename = "3.figures/clas_Sturgeon_Weir_05KG002_noText.png",width = 2.23,height = 3,dpi = 1200)
+
+
+p<- classical_plot  (dat,include.text = T)
+
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+))%>%
+  ggsave(filename = "3.figures/clas_Sturgeon_Weir_05KG002.png",width = 2.23,height = 3,dpi = 1200)
+
+
+# Candeias
+
+
+dat<-read.delim(sprintf("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/camels-br/02_CAMELS_BR_streamflow_all_catchments/%s_streamflow.txt",
+                        "15550000"),
+                sep = "")%>%
+  mutate(dt = ymd(paste(year,month,day)),
+         yday = pmin(yday(dt),365))%>%
+  filter(qual_flag == 1)
+names(dat)[4]<-"q"
+
+p<- stl_plot(dat,7,365)
+p+theme(text = element_text(size = 7))
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+  
+))%>%
+  ggsave(filename = "3.figures/stl_Santa_Isabel.png",width = 2.23,height = 3)
+
+
+
+p<- stl_plot(dat,7,365,include.text = FALSE)
+
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+))%>%
+  ggsave(filename = "3.figures/stl_Santa_Isabel_noText.png",width = 2.23,height = 3,dpi = 1200)
+
+# Candeias classical
+
+p<- classical_plot  (dat,include.text = FALSE)
+
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+))%>%
+  ggsave(filename = "3.figures/clas_Santa_Isabel_noText.png",width = 2.23,height = 3,dpi = 1200)
+
+
+p<- classical_plot  (dat,include.text = T)
+
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+))%>%
+  ggsave(filename = "3.figures/clas_Santa_Isabel.png",width = 2.23,height = 3,dpi = 1200)
+
+
+
+# Oued Kert
+
+
+dat<-read.delim(paste0("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/GRDC/africa/",
+                       "1304800",
+                       "_Q_Day.Cmd.txt"),
+                sep = ";",skip = 36,header =  TRUE)%>%
+  mutate(dt = ymd(YYYY.MM.DD ),
+         year = year(dt),
+         month = month(dt),
+         yday = pmin(yday(dt),365),
+         q = Value)
+
+
+
+dat$q[dat$q==-999]<-NA
+
+p<- stl_plot(dat,7,365)
+p+theme(text = element_text(size = 7))
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+  
+))%>%
+  ggsave(filename = "3.figures/stl_Oued_Kert.png",width = 2.23,height = 3)
+
+
+
+p<- stl_plot(dat,7,365,include.text = FALSE)
+
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+))%>%
+  ggsave(filename = "3.figures/stl_Oued_Kert_noText.png",width = 2.23,height = 3,dpi = 1200)
+
+# Oued Kert classical
+
+p<- classical_plot  (dat,include.text = FALSE)
+
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+))%>%
+  ggsave(filename = "3.figures/clas_Oued_Kert_noText.png",width = 2.23,height = 3,dpi = 1200)
+
+
+p<- classical_plot  (dat,include.text = T)
+
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+))%>%
+  ggsave(filename = "3.figures/clas_Oued_Kert.png",width = 2.23,height = 3,dpi = 1200)
+
+
+
+
+
 # grdc - swp
 
 dat<-read.delim(paste0("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/GRDC/south_west_pacific//",
@@ -1189,4 +1573,65 @@ dat<-read.delim(paste0("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow
 dat$q[dat$q==-999]<-NA
 fourier_plot(dat)
 
+stns$totVar_STL = stns$varSeas_stl+stns$varInterannual_stl+stns$varRem_stl
+stns$totVar_CLAS = stns$varSeas_clas+stns$varInterannual_clas+stns$varRem_clas
+# 09083000
+# THOMPSON CREEK NEAR CARBONDALE, CO.
+nc_dat<-ncdf4::nc_open("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/hysets/HYSETS_2023_update_QC_stations.nc")
+time_length <- nc_dat$dim$time$len
+dt<-as.Date("1950-01-01")+
+  days(ncvar_get(nc = nc_dat,
+                 varid = "time"))
 
+yr = year(dt)
+mnth = month(dt)
+dy = day(dt)
+ydy = pmin(yday(dt),365)
+stns_hysets<-read.csv("../DATA/1.Spatial_data/global/sw_surfacewater_streamflow_runoff_river_network_waterstress/hysets/HYSETS_watershed_properties.txt")
+it = which(stns_hysets$Official_ID=='10080000')
+dat<-data.frame(q= ncvar_get(nc = nc_dat,
+                             varid = "discharge",
+                             start = c(1, stns_hysets$Watershed_ID[it]), # Start at the first time step and the desired catchment
+                             count = c(time_length, 1)),     # Read all time steps for the catchment)
+                dt = dt,
+                year = yr,
+                month = mnth,
+                day = dy,
+                yday = ydy
+)
+# ggplot(dat,aes(dt,y=q))+geom_line()+scale_y_log10()
+p<- stl_plot(dat,7,365)
+p+theme(text = element_text(size = 7))
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+  
+))%>%
+  ggsave(filename = "3.figures/stl_THOMPSON_CREEK_09083000.png",width = 2.23,height = 3)
+
+p<- fourier_plot(dat)
+p+theme(text = element_text(size = 7))
+
+(p+theme(
+  strip.background = element_blank(),
+  strip.text.y = element_blank(),
+  text = element_text(size = 7),
+  plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
+  
+))%>%
+  ggsave(filename = "3.figures/stl_THOMPSON_CREEK_09083000.png",width = 2.23,height = 3)
+
+
+
+#compare variance fractions by three methods
+
+stns%>%
+st_drop_geometry()%>%
+  filter(!is.na(varSeas_clas))%>%
+           summarize(across(varSeas_stl:varRem_fourier,~median(.x)),
+                     N=n())%>%
+  pivot_longer(cols = varSeas_stl:varRem_fourier)%>%
+  arrange(name)

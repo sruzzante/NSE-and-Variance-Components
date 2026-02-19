@@ -12,7 +12,7 @@ library(tidyr)
 library(stringr)
 library(sf)
 
-library(scico)
+# library(scico)
 setwd("/home/ruzzante/projects/def-tgleeson/ruzzante/climatological_benchmarks/")
 
 source('1.code/5.utils/utils.R')
@@ -202,7 +202,7 @@ GOF_ls[[18]]<-filter(GOF_ls[[18]],
 #seasonal 0.5
 stn_comp_ls<-lapply(GOF_ls,function(dat){compareMetricsHighLow_v2(dat,splitVar = "varSeas_fourier",thresh = 0.5)})
 stn_all<-bind_rows(stn_comp_ls)
-plotComps_v2(stn_all,"3.figures/figure3_SeasonalVar_0.5_v3.svg",groupLabels = c("SeasVar≤0.5",
+plotComps_v2(stn_all,"3.figures/figure3_SeasonalVar_0.5_v4.svg",groupLabels = c("SeasVar≤0.5",
                                                                                 "SeasVar>0.5"))
 
 # Figure 4 #############
@@ -216,25 +216,25 @@ stn_all%>%filter(
   mutate(percAbove = round(100*N.above.TRUE/N))%>%
   select(mdl, N,percAbove)
 
-plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v3.svg",
+plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v4.svg",
           groupLabels = 
             c("SeasVar≤0.5",
               "SeasVar>0.5"),
           stat= "r")
 
-plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v3.pdf",
+plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v4.pdf",
           groupLabels = 
             c("SeasVar≤0.5",
               "SeasVar>0.5"),
           stat= "r")
 
-plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v3_rp.pdf",
+plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v4_rp.pdf",
           groupLabels = 
             c("SeasVar≤0.5",
               "SeasVar>0.5"),
           stat= "rp")
 
-plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v3_nse.svg",
+plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v4_nse.svg",
           groupLabels = 
             c("SeasVar≤0.5",
               "SeasVar>0.5"),
@@ -244,8 +244,16 @@ plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v3_nse.svg",
           minor_breaks = c(-67,-33,-6.7,-3.3,0.33,0.67),
           transform = "reverse_log10_shifted",
           strip.text.y = 4.25)
+stn_all%>%
+  filter(str_detect(metric,"NSE_mag"))%>%
+  filter(!metric == "NSE_mag_ann")%>%
+  # group_by(mdl)%>%
+  group_by(metric)%>%
+  summarize(mean(above.TRUE<0))
 
-plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v3_KGE.pdf",
+  
+
+plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v4_KGE.pdf",
           groupLabels = 
             c("SeasVar≤0.5",
               "SeasVar>0.5"),
@@ -255,14 +263,14 @@ plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v3_KGE.pdf",
           # transform = "reverse_log10_shifted",
           strip.text.y = 4.25)
 
-plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v3_alpha.pdf",
+plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v4_alpha.pdf",
           groupLabels = 
             c("SeasVar≤0.5",
               "SeasVar>0.5"),
           stat= "alpha",
           minXVal = 0,
           strip.text.y = 4.25)
-plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v3_bias.pdf",
+plotComps(stn_all,"3.figures/figure4_SeasonalVar_0.5_v4_bias.pdf",
           groupLabels = 
             c("SeasVar≤0.5",
               "SeasVar>0.5"),

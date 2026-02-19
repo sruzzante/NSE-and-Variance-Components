@@ -1082,7 +1082,7 @@ compareMetricsHighLow<-function(stns,splitVar = "NSEB",thresh = 0.5){
   stns<-stns%>%
     mutate(across(starts_with("alpha_"), ~(1-sqrt((1-.x)^2))))%>%
     mutate(across(starts_with("bias_"), ~(1-sqrt((1-.x)^2))))
-    
+  
   # Calculate the median metric value for both subsets, for each model
   stn_median<-
     stns%>%
@@ -1113,7 +1113,7 @@ compareMetricsHighLow<-function(stns,splitVar = "NSEB",thresh = 0.5){
     stn_wilcox<-stns%>%
       pivot_longer(cols = NSE:KGE_BFI,names_to = "metric",values_to = "value")%>%
       group_by(mdl,metric)%>%
-      do(w.p = ((wilcox.test(value~split, data=., paired=FALSE))$p.value))%>%
+      do(w.p = ((wilcox.test(value~split, data=.))$p.value))%>%
       mutate(w.p = as.numeric(w.p))
     
   }else{
@@ -1165,7 +1165,7 @@ compareMetricsHighLow_v2<-function(stns,splitVar = "NSEB",thresh = 0.5){
     stn_wilcox<-stns%>%
       pivot_longer(cols = NSE.maxRun:NSE.Rem,names_to = "metric",values_to = "value")%>%
       group_by(mdl,metric)%>%
-      do(w.p = ((wilcox.test(value~split, data=., paired=FALSE))$p.value))%>%
+      do(w.p = ((wilcox.test(value~split, data=.))$p.value))%>%
       mutate(w.p = as.numeric(w.p))
     
   }else{
@@ -2030,20 +2030,43 @@ plotComps<-
     label_list <- unname(labData2)
     names(label_list) <- names(labData2)
     
+    
+    
+    
+    seg_layers <- lapply(
+      seq_len(nrow(gg_dat2)),
+      function(i) {
+        
+        geom_segment(
+          data = gg_dat2[i, ],
+          aes(
+            y = mdl,
+            yend = mdl,
+            x = above.FALSE,
+            xend = above.TRUE,
+            col = leg_col2
+          ),
+          size = 0.5,
+          arrow = arrow(
+            length = unit(gg_dat2$arrowL[i], "inches"),
+            ends = "last",
+            type = "open"
+          )
+        )
+      }
+    )
+    
+
+    
+    
     p<-
       ggplot(gg_dat1,
-             aes(y = mdl,x= value),size = 0.4)+
-      lapply(
-        split(gg_dat2,gg_dat2$metricLab),
-        function(df)
-          geom_segment(data = df,
-                       aes(y = mdl,yend = mdl,x= above.FALSE,xend = above.TRUE,col = leg_col2),
-                       arrow = arrow(length = unit(df$arrowL,  "inches"),
-                                     ends = "last", type = "open"))
-        
-        
-      )+
-      geom_point(aes(shape = name,col = leg_col),show.legend = c(color = FALSE),size = 0.5)+
+             aes(y = mdl,x= value))+
+      seg_layers+
+      geom_point(aes(shape = name,col = leg_col),
+                 show.legend = c(color = FALSE),
+                 size = 0.7,
+                 stroke = 0.5)+
       
       facet_wrap("metricLab",scales = "free_x",ncol = 6,strip.position = "right",
                  labeller = label_parsed)+
@@ -2062,7 +2085,7 @@ plotComps<-
       
       scale_shape_manual(name = "Subset",
                          breaks = c("above.FALSE","above.TRUE"),
-                         values = c(1,2),
+                         values = c(21,24),
                          labels = groupLabels)+
       theme_bw(base_size = base_size)+
       theme(strip.text.y = element_text(size = strip.text.y))
@@ -2191,40 +2214,100 @@ plotComps_v2<-
     names(label_list) <- names(labData2)
     
     
-    p<-
-      ggplot(gg_dat1,
-             aes(y = mdl,x= value),size = 0.4)+
-      lapply(
-        split(gg_dat2,gg_dat2$metricLab),
-        function(df)
-          geom_segment(data = df,
-                       aes(y = mdl,yend = mdl,x= above.FALSE,xend = above.TRUE,col = leg_col2),
-                       arrow = arrow(length = unit(df$arrowL,  "inches"),
-                                     ends = "last", type = "open"))
+    seg_layers <- lapply(
+      seq_len(nrow(gg_dat2)),
+      function(i) {
         
-        
-      )+
-      geom_point(aes(shape = name,col = leg_col),show.legend = c(color = FALSE),size = 0.5)+
-      
-      facet_wrap("metricLab",scales = "free_x",ncol = 1,strip.position = "right",
-                 labeller = label_parsed)+
-      
-      scale_x_continuous(name = "Median NSE",limits = c(0,1),
+        geom_segment(
+          data = gg_dat2[i, ],
+          aes(
+            y = mdl,
+            yend = mdl,
+            x = above.FALSE,
+            xend = above.TRUE,
+            col = leg_col2
+          ),
+          size = 0.5,
+          arrow = arrow(
+            length = unit(gg_dat2$arrowL[i], "inches"),
+            ends = "last",
+            type = "open"
+          )
+        )
+      }
+    )
+    
+    
+    p <-
+      ggplot(gg_dat1, aes(y = mdl, x = value)) +
+      seg_layers +
+      geom_point(
+        aes(shape = name, col = leg_col),
+        show.legend = c(color = FALSE),
+        size = 0.7,
+        stroke = 0.5
+      ) +
+      facet_wrap(~metricLab,
+                 scales = "free_x",
+                 ncol = 1,
+                 strip.position = "right",
+                 labeller = label_parsed) +
+      scale_x_continuous(name = "Median NSE",
+                         limits = c(0,1),
                          breaks = c(0,1),
-                         oob = scales::oob_keep)+
+                         oob = scales::oob_keep) +
       scale_y_discrete(name = NULL,
-                       limits = rev(ordered_levels),  # Reverse the desired order
+                       limits = rev(ordered_levels),
                        labels = label_list) +
-      scale_color_manual(name = "Significance",
-                         breaks = c("Significantly Higher","Higher","Equal","Lower","Significantly Lower"),
-                         values = rev(c("#7B3294", "#C2A5CF", "grey", "#A6DBA0", "#008837")))+
-      
-      scale_shape_manual(name = "Subset",
-                         breaks = c("above.FALSE","above.TRUE"),
-                         values = c(1,2),
-                         labels = groupLabels)+
+      scale_color_manual(
+        name = "Significance",
+        breaks = c("Significantly Higher","Higher","Equal","Lower","Significantly Lower"),
+        values = rev(c("#7B3294", "#C2A5CF", "grey", "#A6DBA0", "#008837"))
+      ) +
+      scale_shape_manual(
+        name = "Subset",
+        breaks = c("above.FALSE","above.TRUE"),
+        values = c(21,24),
+        labels = groupLabels
+      ) +
       theme_bw(base_size = 5)
     
+    
+    
+    # p<-
+    #   ggplot(gg_dat1,
+    #          aes(y = mdl,x= value))+
+    #   lapply(
+    #     split(gg_dat2,gg_dat2$metricLab),
+    #     function(df)
+    #       geom_segment(data = df,
+    #                    aes(y = mdl,yend = mdl,x= above.FALSE,xend = above.TRUE,col = leg_col2),
+    #                    arrow = arrow(length = unit(df$arrowL,  "inches"),
+    #                                  ends = "last", type = "open"))
+    #     
+    #     
+    #   )+
+    #   geom_point(aes(shape = name,col = leg_col),show.legend = c(color = FALSE),size = 0.5)+
+    #   
+    #   facet_wrap("metricLab",scales = "free_x",ncol = 1,strip.position = "right",
+    #              labeller = label_parsed)+
+    #   
+    #   scale_x_continuous(name = "Median NSE",limits = c(0,1),
+    #                      breaks = c(0,1),
+    #                      oob = scales::oob_keep)+
+    #   scale_y_discrete(name = NULL,
+    #                    limits = rev(ordered_levels),  # Reverse the desired order
+    #                    labels = label_list) +
+    #   scale_color_manual(name = "Significance",
+    #                      breaks = c("Significantly Higher","Higher","Equal","Lower","Significantly Lower"),
+    #                      values = rev(c("#7B3294", "#C2A5CF", "grey", "#A6DBA0", "#008837")))+
+    #   
+    #   scale_shape_manual(name = "Subset",
+    #                      breaks = c("above.FALSE","above.TRUE"),
+    #                      values = c(1,2),
+    #                      labels = groupLabels)+
+    #   theme_bw(base_size = 5)
+    # 
     ggsave(plot = p,filename = flName,width = 3,height = 4,dpi = 600)
     
   }
@@ -2714,9 +2797,9 @@ fourier_plot<-function(dat,include.text = TRUE, round.dec = 2){
     )
   if(include.text){
     p<-p+ geom_label(data = lab_df,aes(x = max(res.df.2$dt)-(max(res.df.2$dt)-min(res.df.2$dt))/2,y=yloc,label = lab),
-                    parse = TRUE,
-                    size = 2,
-                    col = "grey25")
+                     parse = TRUE,
+                     size = 2,
+                     col = "grey25")
   }
   
   
