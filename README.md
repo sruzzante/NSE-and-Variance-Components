@@ -1,16 +1,18 @@
 # NSE-and-Variance-Components
 Author: Sacha Ruzzante
-Last Updated: 2025-08-06
+Last Updated: 2026-02-19
 
 This code was written to produce the analyses and plots in the manuscript:
 
-Ruzzante, S. W., Knoben, W. J. M., Wagener, T., Gleeson, T., and Schnorbus, M. Technical Note: High Nash Sutcliffe Efficiencies conceal poor simulations of interannual variance in tropical, alpine, and polar catchments. Submitted to Hydrology and Earth System Sciences, 2025
+Ruzzante, S. W., Knoben, W. J. M., Wagener, T., Gleeson, T., and Schnorbus, M. Technical Note: High Nash Sutcliffe Efficiencies conceal poor simulations of interannual variance in seasonal regimes. Submitted to Hydrology and Earth System Sciences, 2025
 
 The repository is organized as follows:
 
 [/1.code/](https://github.com/sruzzante/NSE-and-Variance-Components/tree/main/1.code) contains all R codes
 
-[/1.code/1.climatologicalBenchmarkGOF/](https://github.com/sruzzante/NSE-and-Variance-Components/tree/main/1.code/1.climatologicalBenchmarkGOF/) contains the scripts to analyse streamflow data and calculate the variance components and benchmark NSEs for each catchment
+[/1.code/1.climatologicalBenchmarkGOF/](https://github.com/sruzzante/NSE-and-Variance-Components/tree/main/1.code/1.climatologicalBenchmarkGOF/) contains the scripts to extract climatology data for each CAMELS datasets and calculte the Koppen-Geiger climate zone.
+
+[/1.code/2.KoppenGeiger/](https://github.com/sruzzante/NSE-and-Variance-Components/tree/main/1.code/2.KoppenGeiger/) contains the scripts to calcult
 
 [/1.code/3.modelComparison/](https://github.com/sruzzante/NSE-and-Variance-Components/tree/main/1.code/3.modelComparisons) contains the scripts to calculate goodness-of-fit statistics for all 18 models analysed. 
 
